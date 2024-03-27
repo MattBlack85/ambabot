@@ -1,6 +1,7 @@
 import asyncio
 import logging
 import os
+import platform
 import random
 import time
 from pathlib import Path
@@ -54,7 +55,13 @@ class Driverfactory:
         ff_opts = webdriver.FirefoxOptions()
         ff_opts.set_preference("general.useragent.override", USER_AGENT)
         ff_opts.add_argument("--headless")
-        driver = webdriver.Firefox(ff_opts)
+
+        if platform.machine() == "aarch64":
+            service = webdriver.FirefoxService(executable_path="/usr/bin/geckodriver")
+        else:
+            service = None
+
+        driver = webdriver.Firefox(ff_opts, service=service)
 
         return driver
 
@@ -68,6 +75,9 @@ class Driverfactory:
 
     @classmethod
     def pick_driver(cls):
+        if platform.machine() == "aarch64":
+            return cls._setup_ff_driver()
+
         match random.randint(0, 1):
             case 0:
                 return cls._setup_ff_driver()
