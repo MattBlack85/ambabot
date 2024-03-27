@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+requests-html = "*"
+selenium = "*"
+python-telegram-bot = "*"
+python-dotenv = "*"
+random-user-agent = "*"
+
+[dev-packages]
+ipython = "*"
+isort = "*"
+black = "*"
+
+[requires]
+python_version = "3.11"
