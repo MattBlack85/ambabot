@@ -40,13 +40,13 @@ BUSY_MODAL_ID = "jconfirm-box53013"
 logger = logging.getLogger("ambabot")
 here = Path(__file__)
 logfile_path = here.parent.parent / "ambabot.log"
-# logging.basicConfig(
-#     format="%(asctime)s %(message)s",
-#     filename=logfile_path,
-#     filemode="a",
-#     encoding="utf-8",
-#     level=logging.WARN,
-# )
+logging.basicConfig(
+    format="%(asctime)s %(message)s",
+    filename=logfile_path,
+    filemode="a",
+    encoding="utf-8",
+    level=logging.WARN,
+)
 
 
 def generate_random_wait_times(min_secs: int, max_secs: int) -> float:
@@ -57,7 +57,7 @@ class Driverfactory:
     def _setup_ff_driver():
         ff_opts = webdriver.FirefoxOptions()
         ff_opts.set_preference("general.useragent.override", USER_AGENT)
-        # ff_opts.add_argument("--headless")
+        ff_opts.add_argument("--headless")
 
         if platform.machine() == "aarch64":
             service = webdriver.FirefoxService(executable_path="/usr/bin/geckodriver")
@@ -70,7 +70,7 @@ class Driverfactory:
 
     def _setup_chrome_driver():
         chrome_opts = webdriver.ChromeOptions()
-        # chrome_opts.add_argument("--headless=new")
+        chrome_opts.add_argument("--headless=new")
         chrome_opts.add_argument(f"--user-agent={USER_AGENT}")
         driver = webdriver.Chrome(chrome_opts)
 
